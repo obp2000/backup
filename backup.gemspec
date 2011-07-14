@@ -49,4 +49,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('cloudfiles',    [">= 1.4.7"])
   gem.add_dependency('dropbox',       [">= 1.1.2"])
   gem.add_dependency('fog',           ["~> 0.3.5"])
+  gem.add_dependency('mechanize',     ["~> 1.0.0"])
 end

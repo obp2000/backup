@@ -169,6 +169,27 @@ backup 'postgresql-backup-scp' do
 
 end
 
+# Initialize with:
+#   rake backup:run trigger='archive-backup-dropbox'
+backup 'archive-backup-dropbox' do
+  
+  adapter :archive do
+    files ["#{RAILS_ROOT}/public/system"]
+  end
+
+  storage :dropbox do
+    api_key           'api_key'
+    secret_access_key 'secret_access_key'
+    username          'email'
+    password          'password'
+    path              'path'
+  end
+
+  keep_backups 3
+  encrypt_with_password true
+  notify false
+  max_file_part 3 #Dropboks allows uploading files with size not more than 300 megabytes
+end
 
 # Initialize with:
 #   rake backup:run trigger='archive-backup-ftp'

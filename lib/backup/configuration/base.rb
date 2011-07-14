@@ -2,8 +2,8 @@ module Backup
   module Configuration
     class Base
       extend Backup::Configuration::Attributes
-      generate_attributes %w(encrypt_with_password encrypt_with_gpg_public_key keep_backups notify)
-      
+      generate_attributes %w(encrypt_with_password encrypt_with_gpg_public_key keep_backups notify max_file_part)
+
       attr_accessor :trigger, :storage_name, :adapter_name, :before_backup_block, :after_backup_block
 
       def initialize(trigger)

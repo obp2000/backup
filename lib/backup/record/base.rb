@@ -34,7 +34,7 @@ module Backup
         unless backups.empty?
           # Derived classes must implement this method!
           self.destroy_backups(procedure, backups)
-          
+ 
           puts "\nAll \"#{procedure.trigger}\" backups destroyed.\n\n"
         end
       end

@@ -6,7 +6,7 @@ module Backup
 
       include Backup::CommandHelper
       
-      attr_accessor :procedure, :timestamp, :options, :tmp_path, :encrypt_with_password, :encrypt_with_gpg_public_key, :keep_backups, :trigger
+      attr_accessor :procedure, :timestamp, :options, :tmp_path, :encrypt_with_password, :encrypt_with_gpg_public_key, :keep_backups, :trigger, :max_file_part
 
       # IMPORTANT
       # final_file must have the value of the final filename result
@@ -44,8 +44,8 @@ module Backup
         self.keep_backups                = procedure.attributes['keep_backups']
 
         self.performed_file   = "#{timestamp}.#{trigger.gsub(' ', '-')}#{performed_file_extension}"
-        self.compressed_file  = "#{performed_file}.gz"
-        self.final_file       = compressed_file
+        self.compressed_file  = "#{performed_file}"
+        self.final_file       = "#{compressed_file}"
 
         begin
           create_tmp_folder

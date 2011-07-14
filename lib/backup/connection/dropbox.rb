@@ -23,7 +23,7 @@ module Backup
       end
 
       def session
-        @session ||= ::Dropbox::Session.new(api_key, secret_access_key)
+        @session = ::Dropbox::Session.new(api_key, secret_access_key)
         unless @session.authorized?
           @session.authorizing_user = username
           @session.authorizing_password = password
@@ -42,8 +42,18 @@ module Backup
       end
 
       def store
-        path_to_file = File.join(tmp_path, final_file)
-        session.upload(path_to_file, path, :mode => :dropbox, :timeout => 360)
+        if final_file.class.to_s == "Array"
+          final_file.each {|file|
+            path_to_file = File.join(tmp_path, file)
+            puts "Sending file #{file}"
+            session.upload(path_to_file, path, :mode => :dropbox, :timeout => 360000)
+          }
+        else
+          path_to_file = File.join(tmp_path, final_file)
+          file_name = path_to_file.split("/").last
+          puts "Sending file #{file_name}"
+          session.upload(path_to_file, path, :mode => :dropbox, :timeout => 360000)
+        end
       end
 
       private
